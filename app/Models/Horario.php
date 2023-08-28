@@ -21,4 +21,8 @@ class Horario extends Model
         return $this->belongsTo(Docente::class);
     }
 
+    public function actividad(){
+        return $this->belongsTo(Actividad::class);
+    }
+
 }

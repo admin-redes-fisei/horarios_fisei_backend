@@ -96,31 +96,33 @@ class DocenteController extends Controller
         foreach ($horarios as $horario) {
             $aula = $horario->aula;
             $puesto = $horario->puesto;
+            $actividad = $horario->actividad; 
     
             $aulaConcatenada = '';
             if ($aula) {
-                $aulaConcatenada = "{$aula->nombre}-{$aula->edificio}-{$aula->piso}";
+                $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso}";
             }
     
             $puestoConcatenado = '';
             if ($puesto) {
-                $puestoConcatenado = "P{$puesto->numero_puesto}-{$puesto->aula->nombre}-{$puesto->aula->edificio}-{$puesto->aula->piso}";
+                $puestoConcatenado = "P{$puesto->numero_puesto} - {$puesto->aula->nombre} - {$puesto->aula->edificio} - {$puesto->aula->piso}";
             }
     
             $horarioData = [
                 'id' => $horario->id,
-                'actividad_id' => $horario->actividad_id,
-                'docente_id' => $horario->docente_id,
-                'periodo_id' => $horario->periodo_id,
+                // 'actividad_id' => $horario->actividad_id,
+                // 'docente_id' => $horario->docente_id,
+                // 'periodo_id' => $horario->periodo_id,
                 'dia_semana' => $horario->dia_semana,
                 'numero_dia' => $horario->numero_dia,
                 'hora_inicio' => $horario->hora_inicio,
                 'hora_fin' => $horario->hora_fin,
-                'created_at' => $horario->created_at,
-                'updated_at' => $horario->updated_at,
+                // 'created_at' => $horario->created_at,
+                // 'updated_at' => $horario->updated_at,
                 'aula_puesto_info' => $aulaConcatenada ? $aulaConcatenada : ($puestoConcatenado ? $puestoConcatenado : 'N/A'),
                 'aula' => $aula ? true : false,
                 'puesto' => $puesto ? true : false,
+                'actividad' => $actividad->nombre,
             ];
     
             $horarioInfo[] = $horarioData;
