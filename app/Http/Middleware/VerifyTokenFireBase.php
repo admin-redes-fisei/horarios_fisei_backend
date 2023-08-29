@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Google\Auth\Credentials\ServiceAccountCredentials;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
 use Kreait\Firebase\Factory;
-use Symfony\Component\HttpFoundation\Response;
+use Kreait\Firebase\ServiceAccount;
 
 class VerifyTokenFirebase
 {
@@ -15,19 +17,28 @@ class VerifyTokenFirebase
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // Verifica el token de Firebase aquí
         $token = $request->header('Authorization');
 
-        try {
-           
-            
+        $factory = (new Factory)->withServiceAccount('/google-services.json');
 
-            return $next($request);
-        } catch (\Throwable $e) {
-            // El token no es válido, devuelve una respuesta de error
-            return response()->json(['error' => 'Token inválido'], 401);
+        $auth = $factory->createAuth();
+
+        try {
+            $verifiedIdToken = $auth->verifyIdToken($token);
+        } catch (FailedToVerifyToken $e) {
+            echo 'The token is invalid: ' . $e->getMessage();
         }
+
+        $uid = $verifiedIdToken->claims()->get('sub');
+
+        $user = $auth->getUser($uid);
+
+        User::create([
+            
+        ]);
+
+        return $next($request);
     }
 }
