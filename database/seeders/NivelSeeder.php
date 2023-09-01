@@ -2,17 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\Horario;
+use App\Models\Carrera;
+use App\Models\Nivel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class HorarioSeeder extends Seeder
+class NivelSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Horario::factory(300)->create();
+     
+        Nivel::factory()->create(60);
+
     }
 }

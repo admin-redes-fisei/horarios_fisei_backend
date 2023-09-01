@@ -5,7 +5,7 @@
 /public/storage
 /storage/*.key
 /vendor
-google-services.json
+firebase_credentials.json
 .env
 .env.backup
 .env.production

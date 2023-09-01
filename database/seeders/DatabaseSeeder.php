@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TituloSeeder::class);
         $this->call(DocenteSeeder::class);
         $this->call(TituloDocenteSeeder::class);
-        $this->call(CarreraSeeder::class);
-        $this->call(ActividadSeeder::class);
+     
         $this->call(PeriodoSeeder::class);
         $this->call(AulaSeeder::class);
         $this->call(SoftwareSeeder::class);
@@ -27,6 +26,12 @@ class DatabaseSeeder extends Seeder
         $this->call(CaracteristicaSeeder::class);
         $this->call(SugerenciaSeeder::class);
         $this->call(PuestoSeeder::class);
+        $this->call(CarreraSeeder::class);
+        // $this->call(NivelSeeder::class);
+        $this->call(ParaleloSeeder::class);
+        $this->call(ActividadSeeder::class);
         $this->call(HorarioSeeder::class);
+
+        $this->call(RolSeeder::class);
     }
 }

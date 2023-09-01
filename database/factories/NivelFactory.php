@@ -2,16 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Aula;
 use App\Models\Carrera;
-use App\Models\Nivel;
-use App\Models\Paralelo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Nivel>
  */
-class ActividadFactory extends Factory
+class NivelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,9 +17,6 @@ class ActividadFactory extends Factory
      */
     public function definition(): array
     {
-
-        $materia = $this->faker->sentence();
-
         $nombres = [
             "Primero",
             "Segundo",
@@ -36,16 +30,13 @@ class ActividadFactory extends Factory
             "Decimo"
         ];
 
-
-
-        $nivel = $this->faker->randomElement($nombres);
-
+        $nombre = $this->faker->randomElement($nombres);
+        $numero = array_search($nombre, $nombres) + 1;
 
         return [
-            "nombre" => $materia,
-            "nivel" => $nivel,
-            "carrera_id" => Carrera::all()->random()->id,
-            "paralelo_id" => Paralelo::all()->random()->id
+            'nombre' => $nombre,
+            'numero' => $numero,
+            'carrera_id' => Carrera::all()->random()->id
         ];
     }
 }

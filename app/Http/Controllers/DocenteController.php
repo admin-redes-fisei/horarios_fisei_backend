@@ -96,7 +96,10 @@ class DocenteController extends Controller
         foreach ($horarios as $horario) {
             $aula = $horario->aula;
             $puesto = $horario->puesto;
-            $actividad = $horario->actividad; 
+            $actividad = $horario->actividad;
+
+            $carrera = $actividad->carrera;
+            $paralelo = $actividad->paralelo; 
     
             $aulaConcatenada = '';
             if ($aula) {
@@ -123,6 +126,9 @@ class DocenteController extends Controller
                 'aula' => $aula ? true : false,
                 'puesto' => $puesto ? true : false,
                 'actividad' => $actividad->nombre,
+                'nivel' => $actividad->nivel,
+                'carrera' => $carrera->nombre,
+                'paralelo' => $paralelo->nombre
             ];
     
             $horarioInfo[] = $horarioData;

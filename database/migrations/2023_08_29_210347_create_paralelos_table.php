@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('actividades', function (Blueprint $table) {
+        Schema::create('paralelos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-
-            $table->unsignedBigInteger('carrera_id');
-            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('actividades');
+        Schema::dropIfExists('paralelos');
     }
 };
