@@ -3,19 +3,23 @@
 namespace Database\Seeders;
 
 use App\Models\Actividad;
+use App\Models\Paralelo;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ActividadSeeder extends Seeder
+class ParaleloSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-
-     protected $table = 'actividades';
-
     public function run(): void
     {
-        Actividad::factory(50)->create();
+        $nombres = ['A', 'B', 'C', 'D'];
+
+        foreach ($nombres as $nombre) {
+            Paralelo::create([
+                "nombre" => $nombre,
+            ]);
+        }
     }
 }

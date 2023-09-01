@@ -12,7 +12,11 @@ class CarreraController extends Controller
      */
     public function index()
     {
-        $carreras = Carrera::with('materias')->get();
+        $carreras = Carrera::all();
+
+        foreach ($carreras as $carrera) {
+            # code...
+        }
 
         return response()->json($carreras);
     }

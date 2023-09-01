@@ -34,6 +34,9 @@ class SugerenciaController extends Controller
     {
 
         try {
+
+            Sugerencia::create($request->all());
+
            
             return response()->json(array('ok' => true));
     

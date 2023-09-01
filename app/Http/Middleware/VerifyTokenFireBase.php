@@ -6,6 +6,7 @@ use App\Models\User;
 use Closure;
 use Google\Auth\Credentials\ServiceAccountCredentials;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
@@ -19,26 +20,24 @@ class VerifyTokenFirebase
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->header('Authorization');
+        $userId = $request->header('Authorization');
 
-        $factory = (new Factory)->withServiceAccount('/google-services.json');
+        $factory = (new Factory)->withServiceAccount(base_path(env('FIREBASE_CREDENTIALS')));
 
         $auth = $factory->createAuth();
 
-        try {
-            $verifiedIdToken = $auth->verifyIdToken($token);
-        } catch (FailedToVerifyToken $e) {
-            echo 'The token is invalid: ' . $e->getMessage();
+        $user = $auth->getUser($userId);
+
+
+        $email = $user->email;
+        // $name = $user->displayName;
+
+        // $userDB = User::where('email', $email)->get();
+
+        if (User::where('email', $email)->get()->count() > 0) {
+            return $next($request);
+        }else{
+            return response()->json(['error' => 'Not exists User'], Response::HTTP_BAD_REQUEST);
         }
-
-        $uid = $verifiedIdToken->claims()->get('sub');
-
-        $user = $auth->getUser($uid);
-
-        User::create([
-            
-        ]);
-
-        return $next($request);
     }
 }

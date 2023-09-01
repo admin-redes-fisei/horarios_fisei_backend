@@ -5,26 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Actividad extends Model
+class Nivel extends Model
 {
     use HasFactory;
 
-    protected $table = 'actividades';
+    protected $table = 'niveles';
 
-    public function paralelo()
+    public function actividades()
     {
-        return $this->belongsTo(Paralelo::class);
+        return $this->hasMany(Actividad::class);
     }
 
     public function carrera()
     {
         return $this->belongsTo(Carrera::class);
     }
-
-    public function horarios()
-    {
-        return $this->hasMany(Horario::class);
-    }
-    
-
 }

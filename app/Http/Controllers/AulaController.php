@@ -64,4 +64,52 @@ class AulaController extends Controller
     {
         //
     }
+
+    public function horario_aula($id)
+    {
+
+        // $aulas = Aula::with('puestos.horarios.actividad')->get();
+
+        // return response()->json(array('aulas' => $aulas));
+        
+        $aula = Aula::find($id);
+
+        $horarios = $aula->horarios()
+            ->orderBy('numero_dia', 'asc')
+            ->with(['actividad'])
+            ->get();
+
+
+        $horarioLab = [];
+
+        foreach ($horarios as $horario) {
+
+            $materia = $horario->actividad;
+            $carrera = $materia->carrera;
+            $paralelo = $materia->paralelo;
+            $docente = $horario->docente;
+
+
+            $horarioData = [
+                "id" => $horario->id,
+                "dia_semana" => $horario->dia_semana,
+                "numero_dia" => $horario->numero_dia,
+                "hora_inicio" => $horario->hora_inicio,
+                "hora_fin" => $horario->hora_fin,
+                "aula" => $horario->aula->nombre,
+                "edificio" => $horario->aula->edificio,
+                "piso" => $horario->aula->piso,
+                "materia" => $materia->nombre,
+                "nivel" => $materia->nivel,
+                "carrera" => $carrera->id,
+                "paralelo" => $paralelo->nombre,
+                "docente" => $docente->nombres . ' ' . $docente->apellidos,
+
+            ];
+
+            $horarioLab[] = $horarioData;
+        }
+
+        return response()->json(["horarios" => $horarioLab]);
+    }
 }
