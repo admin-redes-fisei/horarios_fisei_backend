@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\CaracteristicaController;
+use App\Http\Controllers\CargarBase;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DocenteController;
@@ -33,19 +34,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('docentes', DocenteController::class)->only('index', 'store', 'update', 'destroy')->only('index')->middleware('verify.token');
-Route::get('docentes/{id}', [DocenteController::class, 'horario_docente'])->middleware('verify.token');
-Route::resource('titulos', TituloController::class)->only('index', 'store', 'update', 'destroy');
-Route::resource('carreras', CarreraController::class)->only('index', 'store', 'update', 'destroy');
-Route::resource('actividades', ActividadController::class)->only('index', 'store', 'update', 'destroy');
-Route::resource('periodos', PeriodoController::class)->only('index', 'store', 'update', 'destroy');
-Route::resource('aulas', AulaController::class)->only('index', 'store', 'update', 'destroy')->only('index')->middleware('verify.token');
-Route::get('aulas/{id}', [AulaController::class, 'horario_aula'])->middleware('verify.token');
+Route::middleware('verify.token:Estudiante')->group(function (){
+    Route::resource('docentes', DocenteController::class)->only(['index']);
+});
+
+Route::middleware('verify.token:Admin')->group(function (){
+    Route::resource('docentes', DocenteController::class);
+});
+
+Route::resource('docentes', DocenteController::class)->only(['index']);
+
+
+Route::get('docentes/{id}', [DocenteController::class, 'horario_docente']);
+Route::resource('titulos', TituloController::class);
+Route::resource('actividades', ActividadController::class);
+Route::resource('periodos', PeriodoController::class);
+Route::resource('aulas', AulaController::class)->only('index', 'store', 'update', 'destroy')->only('index')->middleware('verify.token:Estudiante');
+Route::get('aulas/{id}', [AulaController::class, 'horario_aula'])->middleware('verify.token:Estudiante');
 Route::resource('software', SoftwareController::class)->only('index', 'store', 'update', 'destroy');
 Route::resource('caracteristicas', CaracteristicaController::class)->only('index', 'store', 'update', 'destroy');
 Route::resource('sugerencias', SugerenciaController::class)->only('index', 'store', 'update', 'destroy');
 Route::resource('puestos', PuestoController::class)->only('index', 'store', 'update', 'destroy');
 Route::resource('horarios', HorarioController::class)->only('index', 'store', 'update', 'destroy');
 Route::post('createUser', [UserController::class, 'create']);
-// Route::post('controller', [Controller::class, 'index']);
+
+// Route::resource('carreras', CarreraController::class)->only('index', 'store', 'update', 'destroy');
+// Route::get('controllerH', [Controller::class, 'horario']);
+// Route::get('controllerA', [Controller::class, 'asignaturas']);
+// Route::get('controllerP', [Controller::class, 'profesores']);
+// Route::get('cargar', [CargarBase::class, 'cargarDB']);
 

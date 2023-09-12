@@ -16,7 +16,9 @@ class UserController extends Controller
 
 
         if (!$user) {
-            User::create($request->all());
+            $user = User::create($request->all());
+
+            $user->roles()->attach(2);  
         }
 
         return response()->json(array("Create" => true));

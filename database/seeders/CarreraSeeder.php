@@ -25,17 +25,17 @@ class CarreraSeeder extends Seeder
                 "nombre" => "Industrial",
             ],
             [
-                "nombre" => "Sistemas",
+                "nombre" => "Robotica",
             ],
             [
                 "nombre" => "TI",
             ],
-            [
-                "nombre" => "Electronica",
-            ],
-            [
-                "nombre" => "Industrial en procesos de automatización",
-            ]
+            // [
+            //     "nombre" => "Electronica",
+            // ],
+            // [
+            //     "nombre" => "Industrial en procesos de automatización",
+            // ]
         ];
 
         foreach ($carreras as $carrera) {
