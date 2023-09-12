@@ -12,29 +12,20 @@ class DocenteController extends Controller
      */
     public function index()
     {
-        $docentes = Docente::with('titulos')->get();
+        $docentes = Docente::all();
 
         $formattedData = [];
 
         foreach ($docentes as $docente) {
-            $titles = $docente->titulos;
-            $formattedTitle = '';
-            $fullName = $docente->nombres . ' ' . $docente->apellidos;
+            // $titles = $docente->titulos;
+            // $fullName = $docente->nombres . ' ' . $docente->apellidos;
 
-            $titleIds = $titles->pluck('id')->toArray();
 
-            if (in_array(3, $titleIds)) {
-                $formattedTitle = 'Ing. ' . $fullName . ', PhD.';
-            } elseif (in_array(1, $titleIds) && in_array(2, $titleIds)) {
-                $formattedTitle = 'Ing. ' . $fullName . ', Mg.';
-            } elseif (in_array(1, $titleIds)) {
-                $formattedTitle = 'Ing. ' . $fullName;
-            }
-
-            $formattedData[] = array("id" => $docente->id, "nombre" => $formattedTitle);
+            $formattedData[] = array("id" => $docente->id, "nombre" => $docente->docente, "cedula" => $docente->cedula);
         }
 
         return response()->json(array("docentes" => $formattedData));
+    
     }
 
     /**

@@ -36,7 +36,6 @@ class NivelFactory extends Factory
         return [
             'nombre' => $nombre,
             'numero' => $numero,
-            'carrera_id' => Carrera::all()->random()->id
         ];
     }
 }

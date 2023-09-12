@@ -13,6 +13,26 @@ class SoftwareSeeder extends Seeder
      */
     public function run(): void
     {
-        Software::factory(30)->create();
+        // Software::factory(30)->create();
+
+        $softwaresCSV = storage_path('app/carga/Softwares.csv');
+
+        if (file_exists($softwaresCSV)) {
+            $file = fopen($softwaresCSV, 'r');
+
+            while (($line = fgets($file)) !== false) {
+                $data = str_getcsv($line, ';');
+                $campo1 = $data[0];
+                $campo2 = $data[1];
+
+                // Intenta crear el registro en la base de datos
+                $docente = Software::create([
+                    'nombre' => $campo1,
+                    'version' => $campo2,
+                ]);
+            }
+
+            fclose($file);
+        }
     }
 }

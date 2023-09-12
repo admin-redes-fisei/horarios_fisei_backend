@@ -15,7 +15,27 @@ class NivelSeeder extends Seeder
     public function run(): void
     {
      
-        Nivel::factory()->create(60);
+        $nombres = [
+            "Nivelación",
+            "Primero",
+            "Segundo",
+            "Tercero",
+            "Cuarto",
+            "Quinto",
+            "Sexto",
+            "Septimo",
+            "Octavo",
+            "Noveno",
+            "Decimo"
+        ];
+
+        $aux = 0;
+        foreach ($nombres as $nombre) {
+            Nivel::create([
+                'nombre' => $nombre,
+                'numero' => $aux++
+            ]);
+        }
 
     }
 }

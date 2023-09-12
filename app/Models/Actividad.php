@@ -11,6 +11,9 @@ class Actividad extends Model
 
     protected $table = 'actividades';
 
+    protected $fillable = ['nombre'];
+
+
     public function paralelo()
     {
         return $this->belongsTo(Paralelo::class);

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->tinyInteger('numero_edificio');
             $table->string('piso');
             $table->tinyInteger('numero_piso');
-            $table->boolean('proyector');
-            $table->boolean('aire');            
+            $table->boolean('proyector')->nullable();
+            $table->boolean('aire')->nullable();            
             $table->integer('cantidad_pc');
             $table->integer('capacidad');
             // $table->string('puesto')->nullable();

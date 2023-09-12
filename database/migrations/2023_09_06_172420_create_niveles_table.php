@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('docentes', function (Blueprint $table) {
+        Schema::create('niveles', function (Blueprint $table) {
             $table->id();
-            //Datos reales
-            $table->string('cedula', 10);
-            $table->string("docente", 50);
-            // Datos falsos
-            // $table->string("nombres", 50);
-            // $table->string("apellidos", 50);
+            $table->string('nombre');
+            $table->tinyInteger('numero');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('docentes');
+        Schema::dropIfExists('niveles');
     }
 };

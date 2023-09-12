@@ -12,15 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('actividades', function (Blueprint $table) {
+            
             $table->id();
             $table->string('nombre');
-            $table->string('nivel')->nullable();
+            
+            $table->string('nivel');
+
+            $table->string('numero_nivel');
 
             $table->unsignedBigInteger('carrera_id');
             $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
 
-            $table->unsignedBigInteger('paralelo_id')->nullable();
-            $table->foreign('paralelo_id')->references('id')->on('paralelos')->onDelete('cascade');
 
             $table->timestamps();
         });
