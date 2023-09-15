@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDocenteRequest;
 use App\Http\Requests\UpdateDocenteRequest;
+use App\Models\Actividad;
+use App\Models\Aula;
 use App\Models\Docente;
 use App\Models\Horario;
+use App\Models\Paralelo;
 use Illuminate\Http\Request;
 
 class DocenteController extends Controller
@@ -119,32 +122,32 @@ class DocenteController extends Controller
         return response()->json(array('Eliminado' => false));
     }
 
-    public function horario_docente($id)
+    public function horario_docente(string $id)
     {
         $horarios = Docente::find($id)->horarios()
             ->orderBy('numero_dia', 'asc')
-            ->with(['aula', 'puesto', 'puesto.aula'])
             ->get();
+
+        // dd($horarios);
 
         $horarioInfo = [];
 
         foreach ($horarios as $horario) {
-            $aula = $horario->aula;
-            $puesto = $horario->puesto;
-            $actividad = $horario->actividad;
-
+            
+            $aula = Aula::find($horario->aula_id);
+            $paralelo = Paralelo::find($horario->paralelo_id);
+            $actividad = Actividad::find($horario->actividad_id);
             $carrera = $actividad->carrera;
-            $paralelo = $actividad->paralelo;
+            
 
+        // dd($horario->numero_puesto);
             $aulaConcatenada = '';
-            if ($aula) {
-                $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso}";
-            }
+        if ($horario->numero_puesto == '') {
+            $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso}";
+        }else{
+            $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso} - {$horario->numero_puesto}";
+        }
 
-            $puestoConcatenado = '';
-            if ($puesto) {
-                $puestoConcatenado = "P{$puesto->numero_puesto} - {$puesto->aula->nombre} - {$puesto->aula->edificio} - {$puesto->aula->piso}";
-            }
 
             $horarioData = [
                 'id' => $horario->id,
@@ -157,9 +160,9 @@ class DocenteController extends Controller
                 'hora_fin' => $horario->hora_fin,
                 // 'created_at' => $horario->created_at,
                 // 'updated_at' => $horario->updated_at,
-                'aula_puesto_info' => $aulaConcatenada ? $aulaConcatenada : ($puestoConcatenado ? $puestoConcatenado : 'N/A'),
-                'aula' => $aula ? true : false,
-                'puesto' => $puesto ? true : false,
+                'aula_puesto_info' => $aulaConcatenada,
+                'aula' =>  $horario->numero_puesto == '' ? true : false,
+                'puesto' => $horario->numero_puesto != '' ? true : false,
                 'actividad' => $actividad->nombre,
                 'nivel' => $actividad->nivel,
                 'carrera' => $carrera->nombre,

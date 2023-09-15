@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Aula;
 use App\Models\Docente;
+use App\Models\Horario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HorarioController extends Controller
@@ -32,7 +34,8 @@ class HorarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+
     }
 
     /**
@@ -65,5 +68,65 @@ class HorarioController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function horariolab(string $id, string $dia)
+    {
+
+        $diaLetras = '';
+
+        switch ($dia) {
+            case '1':
+                $diaLetras = 'Lunes';
+                break;
+            case '2':
+                $diaLetras = 'Martes';
+                break;
+            case '3':
+                $diaLetras = 'Miércoles';
+                break;
+            case '4':
+                $diaLetras = 'Jueves';
+                break;
+            case '5':
+                $diaLetras = 'Viernes';
+                break;
+        }
+
+        $horarios = Horario::where('aula_id', $id)
+            ->where('dia_semana', $diaLetras)
+            ->get();
+
+
+        $hojaslab = [];
+
+        foreach ($horarios as $horario) {
+
+            $actividadNivel = $horario->actividad->nivel;
+            $carrera = $horario->actividad->carrera->nombre;
+            $paralelo = $horario->paralelo->nombre;
+
+            $docente = $horario->docente->docente;
+            $materia = $horario->actividad->nombre;
+            $inicio = $horario->hora_inicio;
+            $fin = $horario->hora_fin;
+
+            $nivel = "{$actividadNivel} {$paralelo} {$carrera}";
+
+            $fechaActual = Carbon::now()->format('d-m-Y');
+
+            $hojasData = [
+                'docente' => $docente,
+                'nivel' => $nivel,
+                'materia' => $materia,
+                'inicio' => $inicio,
+                'fin' => $fin,
+                'fecha' => $fechaActual
+            ];
+
+            $hojaslab[] = $hojasData;
+        }
+
+        return response()->json(array('horarios' => $hojaslab));
     }
 }

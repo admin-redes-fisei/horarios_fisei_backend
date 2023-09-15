@@ -24,8 +24,11 @@ class UpdateAulaRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $id = $this->route('aula');
+
         return [
-            'nombre' => 'required|unique:aulas,nombre',
+            'nombre' => 'required|unique:aulas,nombre,' . $id,
             'edificio' => 'required',
             'piso' => 'required',
             'proyector' => ['required', 'in:Si,No'],

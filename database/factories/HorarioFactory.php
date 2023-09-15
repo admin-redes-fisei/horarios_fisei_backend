@@ -6,6 +6,7 @@ use App\Models\Actividad;
 use App\Models\Aula;
 use App\Models\Docente;
 use App\Models\Materia;
+use App\Models\Paralelo;
 use App\Models\Periodo;
 use App\Models\Puesto;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -61,25 +62,20 @@ class HorarioFactory extends Factory
         $horaInicioClases = 8; // 8am
         $horaFinClases = 17; // 5pm
 
-        // Decide whether to use an aula or a puesto
-        $useAula = $this->faker->boolean;
 
-        if ($useAula) {
-            $aulas = Aula::pluck('id')->toArray();
-            $puesto_id = null;
-            $aula_id = $this->faker->randomElement($aulas);
-        } else {
-            $puestos = Puesto::pluck('id')->toArray();
-            $aula_id = null;
-            $puesto_id = $this->faker->randomElement($puestos);
-        }
+        $aulas = Aula::pluck('id')->toArray();
+        $aula_id = $this->faker->randomElement($aulas);
+
+        $paralelos = Paralelo::pluck('id')->toArray();
+        $paralelo_id = $this->faker->randomElement($paralelos);
+
+
 
         return [
             'aula_id' => $aula_id,
             'actividad_id' => $this->faker->randomElement($actividades),
             'docente_id' => $this->faker->randomElement($docentes),
-            'periodo_id' => $periodo->id,
-            'puesto_id' => $puesto_id,
+            'paralelo_id' => $paralelo_id,
             'dia_semana' => $dia,
             'numero_dia' => $numeroDia,
             'hora_inicio' => $horaInicioClases + $this->faker->numberBetween(0, 4),

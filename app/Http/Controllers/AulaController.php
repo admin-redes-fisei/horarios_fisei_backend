@@ -229,19 +229,20 @@ class AulaController extends Controller
 
         $horarios = $aula->horarios()
             ->orderBy('numero_dia', 'asc')
-            ->with(['actividad'])
             ->get();
 
-
+        // dd($horarios);
         $horarioLab = [];
 
         foreach ($horarios as $horario) {
 
             $materia = $horario->actividad;
-            $carrera = $materia->carrera;
-            $paralelo = $materia->paralelo;
-            $docente = $horario->docente;
 
+            $carrera = $materia->carrera;
+
+            $paralelo = $horario->paralelo;
+
+            $docente = $horario->docente;
 
             $horarioData = [
                 "id" => $horario->id,
@@ -254,10 +255,9 @@ class AulaController extends Controller
                 "piso" => $horario->aula->piso,
                 "materia" => $materia->nombre,
                 "nivel" => $materia->nivel,
-                "carrera" => $carrera->id,
+                "carrera" => $carrera->nombre,
                 "paralelo" => $paralelo->nombre,
-                "docente" => $docente->nombres . ' ' . $docente->apellidos,
-
+                "docente" => $docente->docente,
             ];
 
             $horarioLab[] = $horarioData;
