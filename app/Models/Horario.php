@@ -25,4 +25,8 @@ class Horario extends Model
         return $this->belongsTo(Actividad::class);
     }
 
+    public function paralelo(){
+        return $this->belongsTo(Paralelo::class);
+    }
+
 }

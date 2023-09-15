@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(NivelSeeder::class);
         $this->call(ParaleloSeeder::class);
         $this->call(ActividadSeeder::class);
-        // $this->call(HorarioSeeder::class);
+        $this->call(HorarioSeeder::class);
 
         $this->call(RolSeeder::class);
     }

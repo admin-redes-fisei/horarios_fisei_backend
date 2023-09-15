@@ -10,11 +10,11 @@ class CarreraController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $carreras = Carrera::all();
+        $actividades = Carrera::find($id)->actividades;
 
-        return response()->json($carreras);
+        return response()->json(array('materias' => $actividades));
     }
 
     /**
