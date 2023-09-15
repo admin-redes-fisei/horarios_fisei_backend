@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDocenteRequest;
+use App\Http\Requests\UpdateDocenteRequest;
 use App\Models\Docente;
+use App\Models\Horario;
 use Illuminate\Http\Request;
 
 class DocenteController extends Controller
@@ -21,11 +24,10 @@ class DocenteController extends Controller
             // $fullName = $docente->nombres . ' ' . $docente->apellidos;
 
 
-            $formattedData[] = array("id" => $docente->id, "nombre" => $docente->docente, "cedula" => $docente->cedula);
+            $formattedData[] = array("id" => $docente->id, "docente" => $docente->docente, "cedula" => $docente->cedula);
         }
 
         return response()->json(array("docentes" => $formattedData));
-    
     }
 
     /**
@@ -38,9 +40,25 @@ class DocenteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDocenteRequest $request)
     {
-        return response()->json(["hola" => true]);
+        $nombre = $request->docente;
+        $ced = $request->cedula;
+
+        $docente = Docente::create([
+            "docente" => $nombre,
+            "cedula" => $ced
+        ]);
+
+        $respuesta = [
+            "id" => $docente->id,
+            "docente" => $docente->docente,
+            "cedula" => $docente->cedula
+        ];
+
+        $docenteJson = json_encode($respuesta);
+
+        return $docenteJson;
     }
 
     /**
@@ -62,9 +80,25 @@ class DocenteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateDocenteRequest $request, string $id)
     {
-        //
+
+        $docente = Docente::find($id);
+
+
+        if ($docente->update($request->all())) {
+
+            $respuesta = [
+                'docente' => $docente->docente,
+                'id' => $docente->id,
+                'cedula' => $docente->cedula,
+            ];
+
+
+            return json_encode($respuesta);
+        }
+
+        return json_encode(array('Error' => 'No se actualizo al docente'));
     }
 
     /**
@@ -72,7 +106,17 @@ class DocenteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        $horarios = Horario::where('docente_id', '=', $id)->get();
+        if ($horarios->count() == 0) {
+            if (Docente::destroy($id)) {
+                return response()->json(array('Eliminado' => true));
+            }
+        }else{
+            return response()->json(array('Error' => "Hay filas en la tabla horario donde se requiere el Docente"));
+        }
+
+        return response()->json(array('Eliminado' => false));
     }
 
     public function horario_docente($id)
@@ -81,27 +125,27 @@ class DocenteController extends Controller
             ->orderBy('numero_dia', 'asc')
             ->with(['aula', 'puesto', 'puesto.aula'])
             ->get();
-    
+
         $horarioInfo = [];
-    
+
         foreach ($horarios as $horario) {
             $aula = $horario->aula;
             $puesto = $horario->puesto;
             $actividad = $horario->actividad;
 
             $carrera = $actividad->carrera;
-            $paralelo = $actividad->paralelo; 
-    
+            $paralelo = $actividad->paralelo;
+
             $aulaConcatenada = '';
             if ($aula) {
                 $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso}";
             }
-    
+
             $puestoConcatenado = '';
             if ($puesto) {
                 $puestoConcatenado = "P{$puesto->numero_puesto} - {$puesto->aula->nombre} - {$puesto->aula->edificio} - {$puesto->aula->piso}";
             }
-    
+
             $horarioData = [
                 'id' => $horario->id,
                 // 'actividad_id' => $horario->actividad_id,
@@ -121,11 +165,10 @@ class DocenteController extends Controller
                 'carrera' => $carrera->nombre,
                 'paralelo' => $paralelo->nombre
             ];
-    
+
             $horarioInfo[] = $horarioData;
         }
-    
+
         return response()->json(["horarioInfo" => $horarioInfo]);
     }
-    
 }

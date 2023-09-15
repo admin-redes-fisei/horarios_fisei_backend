@@ -25,7 +25,7 @@ class CarreraSeeder extends Seeder
                 "nombre" => "Industrial",
             ],
             [
-                "nombre" => "Robotica",
+                "nombre" => "Robótica",
             ],
             [
                 "nombre" => "TI",

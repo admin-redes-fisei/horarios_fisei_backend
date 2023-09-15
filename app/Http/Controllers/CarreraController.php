@@ -14,10 +14,6 @@ class CarreraController extends Controller
     {
         $carreras = Carrera::all();
 
-        foreach ($carreras as $carrera) {
-            # code...
-        }
-
         return response()->json($carreras);
     }
 

@@ -11,6 +11,6 @@ class Software extends Model
 
     public function aulas()
     {
-        return $this->belongsToMany(Aula::class);
+        return $this->belongsTo(Aula::class);
     }
 }

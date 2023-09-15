@@ -24,11 +24,13 @@ class SoftwareSeeder extends Seeder
                 $data = str_getcsv($line, ';');
                 $campo1 = $data[0];
                 $campo2 = $data[1];
+                $campo3 = $data[2];
 
                 // Intenta crear el registro en la base de datos
                 $docente = Software::create([
                     'nombre' => $campo1,
                     'version' => $campo2,
+                    'aula_id' => $campo3,
                 ]);
             }
 

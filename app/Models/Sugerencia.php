@@ -11,4 +11,8 @@ class Sugerencia extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function aula(){
+        return $this->belongsTo(Aula::class);
+    }
+
 }
