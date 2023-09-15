@@ -12,7 +12,7 @@ class SoftwareController extends Controller
      */
     public function index()
     {
-        $softwares = Software::all();
+        $softwares = Software::with('aulas')->get();
 
         return response()->json(array('softwares' => $softwares));
     }

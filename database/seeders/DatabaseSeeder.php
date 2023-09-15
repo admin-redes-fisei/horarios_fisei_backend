@@ -23,9 +23,13 @@ class DatabaseSeeder extends Seeder
         // $this->call(NivelSeeder::class);
         $this->call(AulaSeeder::class);
         $this->call(SoftwareSeeder::class);
-        $this->call(AulaSoftwareSeeder::class);
-        // $this->call(CaracteristicaSeeder::class);
-        // $this->call(SugerenciaSeeder::class);
+        // $this->call(AulaSoftwareSeeder::class);
+
+        //Comentar datos falsos
+        $this->call(CaracteristicaSeeder::class);
+        $this->call(SugerenciaSeeder::class);
+        // estos 2
+
         // $this->call(PuestoSeeder::class);
         $this->call(CarreraSeeder::class);
         // $this->call(NivelSeeder::class);

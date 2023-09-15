@@ -13,6 +13,6 @@ class SugerenciaSeeder extends Seeder
      */
     public function run(): void
     {
-        Sugerencia::factory(30)->create();
+        Sugerencia::factory(5)->create();
     }
 }

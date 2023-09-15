@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('version');
+            
+            $table->unsignedBigInteger('aula_id');
+            $table->foreign('aula_id')->references('id')->on('aulas')->onDelete('cascade');
+            
             // $table->text('descripcion');
             $table->timestamps();
         });

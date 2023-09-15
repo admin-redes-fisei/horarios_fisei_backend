@@ -14,9 +14,18 @@ class SugerenciaController extends Controller
      */
     public function index()
     {
-        $sugerencias = Sugerencia::all();
+        $sugerencias = Sugerencia::with('aula')->get();
 
-        return response()->json(array('sugerencias' => $sugerencias));
+        $sugerenciasFormat = $sugerencias->map(function($sugerencia){
+            return [
+                'id' => $sugerencia->id,
+                'nombre' => $sugerencia->nombre,
+                'descripcion' => $sugerencia->descripcion,
+                'aula' => $sugerencia->aula->nombre
+            ];
+        });
+
+        return response()->json(array('sugerencias' => $sugerenciasFormat));
     }
 
     /**

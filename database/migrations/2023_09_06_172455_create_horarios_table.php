@@ -24,7 +24,7 @@ return new class extends Migration
             // $table->foreign('carrera_id')->references('id')->on('actividades')->onDelete('cascade');
 
             $table->unsignedBigInteger('paralelo_id');
-            $table->foreign('paralelo_id')->references('id')->on('actividades')->onDelete('cascade');
+            $table->foreign('paralelo_id')->references('id')->on('actividades')->onDelete('cascade');;
 
             $table->unsignedBigInteger('docente_id');
             $table->foreign('docente_id')->references('id')->on('docentes')->onDelete('cascade');

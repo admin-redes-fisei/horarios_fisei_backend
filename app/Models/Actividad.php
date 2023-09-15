@@ -11,7 +11,7 @@ class Actividad extends Model
 
     protected $table = 'actividades';
 
-    protected $fillable = ['nombre'];
+    protected $fillable = ['nombre', 'carrera_id', 'nivel', 'numero_nivel'];
 
 
     public function paralelo()

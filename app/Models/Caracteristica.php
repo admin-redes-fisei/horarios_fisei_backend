@@ -9,5 +9,8 @@ class Caracteristica extends Model
 {
     use HasFactory;
 
+    public function aula(){
+        return $this->belongsTo(Aula::class);
+    }
     
 }
