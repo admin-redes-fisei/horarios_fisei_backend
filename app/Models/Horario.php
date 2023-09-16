@@ -9,24 +9,40 @@ class Horario extends Model
 {
     use HasFactory;
 
-    public function puesto(){
+    protected $fillable = [
+        'aula_id',
+        'docente_id',
+        'actividad_id',
+        'paralelo_id',
+        'hora_inicio',
+        'hora_fin',
+        'numero_dia',
+        'dia_semana',
+        'numero_puesto'
+    ];
+
+    public function puesto()
+    {
         return $this->belongsTo(Puesto::class);
     }
 
-    public function aula(){
+    public function aula()
+    {
         return $this->belongsTo(Aula::class);
     }
 
-    public function docente(){
+    public function docente()
+    {
         return $this->belongsTo(Docente::class);
     }
 
-    public function actividad(){
+    public function actividad()
+    {
         return $this->belongsTo(Actividad::class);
     }
 
-    public function paralelo(){
+    public function paralelo()
+    {
         return $this->belongsTo(Paralelo::class);
     }
-
 }
