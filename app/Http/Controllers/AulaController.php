@@ -44,8 +44,6 @@ class AulaController extends Controller
                         'id' => $software->id,
                         'nombre' => $software->nombre,
                         'version' => $software->version,
-                        'created_at' => $software->created_at,
-                        'updated_at' => $software->updated_at,
                     ];
                 }),
             ];

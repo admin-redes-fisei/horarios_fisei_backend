@@ -9,7 +9,13 @@ class Software extends Model
 {
     use HasFactory;
 
-    public function aulas()
+    protected $fillable = [
+        'nombre',
+        'version',
+        'aula_id'
+    ];
+
+    public function aula()
     {
         return $this->belongsTo(Aula::class);
     }

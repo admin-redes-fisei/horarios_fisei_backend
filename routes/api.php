@@ -52,8 +52,10 @@ Route::middleware('verify.token:Admin')->group(function (){
     Route::resource('sugerencias', SugerenciaController::class);
     Route::resource('actividades', ActividadController::class);
     Route::resource('caracteristicas', CaracteristicaController::class);
+    Route::resource('softwares', SoftwareController::class);
     Route::resource('horarios', HorarioController::class);
 });
+
 
 Route::resource('docentes', DocenteController::class);
 Route::get('docente/{id}', [DocenteController::class, 'horario_docente']);
@@ -66,6 +68,8 @@ Route::resource('actividades', ActividadController::class);
 Route::resource('sugerencias', SugerenciaController::class)->only('index', 'store', 'update', 'destroy');
 
 Route::resource('caracteristicas', CaracteristicaController::class)->only('index', 'store', 'update', 'destroy');
+
+Route::resource('softwares', SoftwareController::class);
 
 Route::resource('horarios', HorarioController::class)->only('index', 'store', 'update', 'destroy');
 Route::get('horario/{id}/{dia}', [HorarioController::class, 'horariolab']);
