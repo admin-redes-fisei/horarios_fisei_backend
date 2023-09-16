@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSoftwareRequest;
+use App\Models\Aula;
 use App\Models\Software;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,7 @@ class SoftwareController extends Controller
      */
     public function index()
     {
-        $softwares = Software::with('aulas')->get();
+        $softwares = Software::with('aula')->get();
 
         return response()->json(array('softwares' => $softwares));
     }
@@ -28,9 +30,17 @@ class SoftwareController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSoftwareRequest $request)
     {
-        //
+        $software = Software::create($request->all());
+
+        $respuesta = [
+            'id' => $software->id,
+            'nombre' => $software->nombre,
+            'version' => $software->version,
+        ];
+
+        return response()->json($respuesta);
     }
 
     /**
@@ -54,7 +64,18 @@ class SoftwareController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $software = Software::find($id);
+        if ($software->update($request->all())) {
+            $respuesta = [
+                'id' => $software->id,
+                'nombre' => $software->nombre,
+                'version' => $software->version,
+            ];
+
+            return response()->json($respuesta);
+        } else {
+            return json_encode(array('Error' => 'No se actualizo la Caracteristica'));
+        }
     }
 
     /**
@@ -62,6 +83,35 @@ class SoftwareController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (Software::destroy($id)) {
+            return response()->json(array('Eliminado' => true));
+        }
+        return response()->json(array('Eliminado' => false));
+
     }
+
+    public function software_aula($id){
+
+        $aula = Aula::find($id);
+
+        $softwares = $aula->softwares;
+
+        $softwaresLab = [];
+
+        foreach ($softwares as $software){
+            $nombre = $software->nombre;
+            $version = $software->version;
+
+            $softwaresData = [
+                'nombre' => $nombre,
+                'version' => $version,
+            ];
+
+            $softwaresLab[] = $softwaresData;
+        }
+
+        return $softwaresLab;  
+    }
+
+
 }

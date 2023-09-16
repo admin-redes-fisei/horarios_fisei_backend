@@ -9,6 +9,12 @@ class Caracteristica extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'aula_id'
+    ];
+
     public function aula(){
         return $this->belongsTo(Aula::class);
     }
