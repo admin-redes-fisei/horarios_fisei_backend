@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreHorarioRequest;
+use App\Models\Actividad;
 use App\Models\Aula;
 use App\Models\Docente;
 use App\Models\Horario;
+use App\Models\Paralelo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -32,10 +35,61 @@ class HorarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreHorarioRequest $request)
     {
-        
+        $numero_dia = $request->numero_dia;
 
+        $dia_semana = '';
+
+        switch ($numero_dia) {
+            case '1':
+                $dia_semana = 'Lunes';
+                break;
+            case '2':
+                $dia_semana = 'Martes';
+                break;
+            case '3':
+                $dia_semana = 'Miércoles';
+                break;
+            case '4':
+                $dia_semana = 'Jueves';
+                break;
+            case '5':
+                $dia_semana = 'Viernes';
+                break;
+        }
+
+        $request->merge(['dia_semana' => $dia_semana]);
+
+        $horario = Horario::create($request->all());
+
+
+        $aula = Aula::find($horario->aula_id);
+        $docente = Docente::find($horario->docente_id);
+        $actividad = Actividad::find($horario->actividad_id);
+        $paralelo = Paralelo::find($horario->paralelo_id);
+        
+        $carrera = $actividad->carrera;
+
+        // $nivel = "{$actividad->nivel} {$paralelo->nombre} {$carrera->nombre}";
+        $aula_puesto_info = "{$aula->nombre} - {$aula->edificio} - {$aula->piso}";
+
+        $respuesta = [
+            'id' => $horario->id,
+            'dia_semana' => $horario->dia_semana,
+            'numero_dia' => $horario->numero_dia,
+            'hora_inicio' => $horario->hora_inicio,
+            'hora_fin' => $horario->hora_fin,
+            'aula_puesto_info' => $aula_puesto_info,
+            'aula' => $horario->numero_puesto == '' ? true : false,
+            'puesto' => $horario->numero_puesto != '' ? true : false,
+            'actividad' => $actividad->nombre,
+            'nivel' => $actividad->nivel,
+            'carrera' => $carrera->nombre,
+            'paralelo' => $paralelo->nombre,
+        ];
+
+        return response()->json($respuesta);
     }
 
     /**
@@ -67,7 +121,11 @@ class HorarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (Horario::destroy($id)) {
+            return response()->json(array('Eliminado' => true));
+        }else{
+            return response()->json(array('Eliminado' => false));
+        }
     }
 
     public function horariolab(string $id, string $dia)
@@ -113,7 +171,7 @@ class HorarioController extends Controller
 
             $nivel = "{$actividadNivel} {$paralelo} {$carrera}";
 
-            $fechaActual = Carbon::now()->format('d-m-Y');
+            $fechaActual = Carbon::now('America/Guayaquil')->format('d-m-Y');
 
             $hojasData = [
                 'docente' => $docente,
