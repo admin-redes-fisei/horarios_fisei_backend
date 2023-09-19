@@ -17,6 +17,7 @@ use App\Http\Controllers\TituloController;
 use App\Http\Controllers\UserController;
 use App\Models\Puesto;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,20 +31,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::middleware('verify.token:Estudiante')->group(function (){
-    Route::resource('docentes', DocenteController::class)->only('index');
-    Route::resource('aulas', AulaController::class)->only('index');
-    Route::get('docente/{id}', [DocenteController::class, 'horario_docente']);
-    Route::get('aula/{id}', [AulaController::class, 'horario_aula']);
-    Route::resource('sugerencias', SugerenciaController::class)->only('store');
-    Route::resource('caracteristicas', CaracteristicaController::class)->only('index');
-});
-
-Route::middleware('verify.token:Admin')->group(function (){
+Route::middleware(['verify.token:Admin'])->group(function (){
     Route::resource('docentes', DocenteController::class);
     Route::resource('aulas', AulaController::class);
     Route::get('docente/{id}', [DocenteController::class, 'horario_docente']);
@@ -54,37 +46,40 @@ Route::middleware('verify.token:Admin')->group(function (){
     Route::resource('caracteristicas', CaracteristicaController::class);
     Route::resource('softwares', SoftwareController::class);
     Route::resource('horarios', HorarioController::class);
+    Route::get('horario/{id}/{dia}', [HorarioController::class, 'horariolab']);
 });
 
 
-Route::resource('docentes', DocenteController::class);
-Route::get('docente/{id}', [DocenteController::class, 'horario_docente']);
+Route::middleware(['verify.token:Estudiante,Admin'])->group(function (){
+    Route::resource('docentes', DocenteController::class)->only('index');
+    Route::resource('aulas', AulaController::class)->only('index');
+    Route::get('docente/{id}', [DocenteController::class, 'horario_docente']);
+    Route::get('aula/{id}', [AulaController::class, 'horario_aula']);
+    Route::resource('sugerencias', SugerenciaController::class)->only('store');
+});
 
-Route::resource('aulas', AulaController::class);
-Route::get('aula/{id}', [AulaController::class, 'horario_aula']);
+// Route::resource('docentes', DocenteController::class);
+// Route::get('docente/{id}', [DocenteController::class, 'horario_docente']);
 
-Route::resource('actividades', ActividadController::class);
+// Route::resource('aulas', AulaController::class);
+// Route::get('aula/{id}', [AulaController::class, 'horario_aula']);
 
-Route::resource('sugerencias', SugerenciaController::class)->only('index', 'store', 'update', 'destroy');
+// Route::resource('sugerencias', SugerenciaController::class)->only('index', 'store', 'update', 'destroy');
 
-Route::resource('caracteristicas', CaracteristicaController::class)->only('index', 'store', 'update', 'destroy');
+// Route::resource('actividades', ActividadController::class);
 
-Route::resource('softwares', SoftwareController::class);
+// Route::resource('caracteristicas', CaracteristicaController::class)->only('index', 'store', 'update', 'destroy');
 
-Route::resource('horarios', HorarioController::class)->only('index', 'store', 'update', 'destroy');
-Route::get('horario/{id}/{dia}', [HorarioController::class, 'horariolab']);
+// Route::resource('softwares', SoftwareController::class);
+
+// Route::resource('horarios', HorarioController::class)->only('index', 'store', 'update', 'destroy');
 
 Route::post('createUser', [UserController::class, 'create']);
 
-Route::get('carrera/{id}', [CarreraController::class, 'index']);
+// Route::get('carrera/{id}', [CarreraController::class, 'index']);
 
 // Route::resource('periodos', PeriodoController::class);   
 // Route::resource('software', SoftwareController::class)->only('index', 'store', 'update', 'destroy');
 // Route::resource('titulos', TituloController::class);
 // Route::resource('puestos', PuestoController::class)->only('index', 'store', 'update', 'destroy');
 // Route::resource('carreras', CarreraController::class);
-// Route::get('controllerH', [Controller::class, 'horario']);
-// Route::get('controllerA', [Controller::class, 'asignaturas']);
-// Route::get('controllerP', [Controller::class, 'profesores']);
-// Route::get('cargar', [CargarBase::class, 'cargarDB']);
-

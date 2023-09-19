@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSoftwareRequest;
+use App\Http\Requests\UpdateSoftwareRequest;
 use App\Models\Aula;
 use App\Models\Software;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class SoftwareController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateSoftwareRequest $request, string $id)
     {
         $software = Software::find($id);
         if ($software->update($request->all())) {

@@ -68,7 +68,7 @@ class HorarioController extends Controller
         $docente = Docente::find($horario->docente_id);
         $actividad = Actividad::find($horario->actividad_id);
         $paralelo = Paralelo::find($horario->paralelo_id);
-        
+
         $carrera = $actividad->carrera;
 
         // $nivel = "{$actividad->nivel} {$paralelo->nombre} {$carrera->nombre}";
@@ -123,14 +123,159 @@ class HorarioController extends Controller
     {
         if (Horario::destroy($id)) {
             return response()->json(array('Eliminado' => true));
-        }else{
+        } else {
             return response()->json(array('Eliminado' => false));
         }
     }
 
-    public function horariolab(string $id, string $dia)
-    {
+    // public function horariolab(string $id, string $dia)
+    // {
 
+    //     $diaLetras = '';
+
+    //     switch ($dia) {
+    //         case '1':
+    //             $diaLetras = 'Lunes';
+    //             break;
+    //         case '2':
+    //             $diaLetras = 'Martes';
+    //             break;
+    //         case '3':
+    //             $diaLetras = 'Miércoles';
+    //             break;
+    //         case '4':
+    //             $diaLetras = 'Jueves';
+    //             break;
+    //         case '5':
+    //             $diaLetras = 'Viernes';
+    //             break;
+    //     }
+
+    //     $horarios = Horario::where('aula_id', $id)
+    //         ->where('dia_semana', $diaLetras)
+    //         ->get();
+
+
+    //     $hojaslab = [];
+
+    //     foreach ($horarios as $horario) {
+
+    //         $actividadNivel = $horario->actividad->nivel;
+    //         $carrera = $horario->actividad->carrera->nombre;
+    //         $paralelo = $horario->paralelo->nombre;
+
+    //         $docente = $horario->docente->docente;
+    //         $materia = $horario->actividad->nombre;
+    //         $inicio = $horario->hora_inicio;
+    //         $fin = $horario->hora_fin;
+
+    //         $nivel = "{$actividadNivel} {$paralelo} {$carrera}";
+
+    //         $fechaActual = Carbon::now('America/Guayaquil')->format('d-m-Y');
+
+    //         $hojasData = [
+    //             'docente' => $docente,
+    //             'nivel' => $nivel,
+    //             'materia' => $materia,
+    //             'inicio' => $inicio,
+    //             'fin' => $fin,
+    //             'fecha' => $fechaActual
+    //         ];
+
+    //         $hojaslab[] = $hojasData;
+    //     }
+
+    //     return response()->json(array('horarios' => $hojaslab));
+    // }
+
+    // public function horariolab(string $id, string $dia)
+    // {
+    //     $diaLetras = '';
+
+    //     switch ($dia) {
+    //         case '1':
+    //             $diaLetras = 'Lunes';
+    //             break;
+    //         case '2':
+    //             $diaLetras = 'Martes';
+    //             break;
+    //         case '3':
+    //             $diaLetras = 'Miércoles';
+    //             break;
+    //         case '4':
+    //             $diaLetras = 'Jueves';
+    //             break;
+    //         case '5':
+    //             $diaLetras = 'Viernes';
+    //             break;
+    //     }
+
+    //     // Obtén la hora actual usando Carbon
+    //     $horaActual = Carbon::now('America/Guayaquil')->format('H:i');
+
+    //     $horarios = Horario::where('aula_id', $id)
+    //         ->where('dia_semana', $diaLetras)
+    //         ->get();
+
+    //     $hojaslab = [];
+
+    //     foreach ($horarios as $horario) {
+    //         // Verifica si el horario tiene un número de puesto
+    //         if ($horario->numero_puesto === null) {
+    //             $aulaNombre = $horario->aula->nombre;
+
+    //             // Verifica si el nombre del aula contiene "LAB"
+    //             if (strpos($aulaNombre, 'LAB') !== false) {
+    //                 $actividadNivel = $horario->actividad->nivel;
+    //                 $carrera = $horario->actividad->carrera->nombre;
+    //                 $paralelo = $horario->paralelo->nombre;
+
+    //                 $docente = $horario->docente->docente;
+    //                 $materia = $horario->actividad->nombre;
+    //                 $inicio = $horario->hora_inicio;
+    //                 $fin = $horario->hora_fin;
+
+    //                 // Verifica si la hora actual está en la primera jornada o en la jornada de tarde
+    //                 if ($horaActual >= '07:00' && $horaActual <= '13:00') {
+    //                     // Si es la primera jornada, agrega el horario si está dentro del rango
+    //                     if ($inicio >= '07:00' && $fin <= '13:00') {
+    //                         $nivel = "{$actividadNivel} {$paralelo} {$carrera}";
+    //                         $fechaActual = Carbon::now('America/Guayaquil')->format('d-m-Y');
+    //                         $hojasData = [
+    //                             'docente' => $docente,
+    //                             'nivel' => $nivel,
+    //                             'materia' => $materia,
+    //                             'inicio' => $inicio,
+    //                             'fin' => $fin,
+    //                             'fecha' => $fechaActual
+    //                         ];
+    //                         $hojaslab[] = $hojasData;
+    //                     }
+    //                 } elseif ($horaActual >= '14:00' && $horaActual <= '20:00') {
+    //                     // Si es la jornada de tarde, agrega el horario si está dentro del rango
+    //                     if ($inicio >= '14:00' && $fin <= '20:00') {
+    //                         $nivel = "{$actividadNivel} {$paralelo} {$carrera}";
+    //                         $fechaActual = Carbon::now('America/Guayaquil')->format('d-m-Y');
+    //                         $hojasData = [
+    //                             'docente' => $docente,
+    //                             'nivel' => $nivel,
+    //                             'materia' => $materia,
+    //                             'inicio' => $inicio,
+    //                             'fin' => $fin,
+    //                             'fecha' => $fechaActual
+    //                         ];
+    //                         $hojaslab[] = $hojasData;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     return response()->json(array('horarios' => $hojaslab));
+    // }
+
+    public function horariolab(string $numeroEdificio, string $dia)
+    {
         $diaLetras = '';
 
         switch ($dia) {
@@ -151,31 +296,36 @@ class HorarioController extends Controller
                 break;
         }
 
-        $horarios = Horario::where('aula_id', $id)
+        // Obtener los horarios del día en ese edificio, con las materias
+        // y donde numero_puesto esté vacío en la tabla aulas, y el nombre de aula contenga "LAB"
+        $horarios = Horario::whereHas('aula', function ($query) use ($numeroEdificio) {
+            $query->where('numero_edificio', $numeroEdificio)
+                ->where('nombre', 'LIKE', '%LAB%');
+        })
             ->where('dia_semana', $diaLetras)
+            ->whereNull('numero_puesto')
             ->get();
 
 
         $hojaslab = [];
 
         foreach ($horarios as $horario) {
-
+            $laboratorio = $horario->aula->nombre;
             $actividadNivel = $horario->actividad->nivel;
             $carrera = $horario->actividad->carrera->nombre;
             $paralelo = $horario->paralelo->nombre;
-
             $docente = $horario->docente->docente;
             $materia = $horario->actividad->nombre;
             $inicio = $horario->hora_inicio;
             $fin = $horario->hora_fin;
-
-            $nivel = "{$actividadNivel} {$paralelo} {$carrera}";
-
+            $nivel = "{$actividadNivel} {$paralelo} ";
             $fechaActual = Carbon::now('America/Guayaquil')->format('d-m-Y');
 
             $hojasData = [
+                'laboratorio' => $laboratorio,
                 'docente' => $docente,
                 'nivel' => $nivel,
+                'carrera' => $carrera,
                 'materia' => $materia,
                 'inicio' => $inicio,
                 'fin' => $fin,

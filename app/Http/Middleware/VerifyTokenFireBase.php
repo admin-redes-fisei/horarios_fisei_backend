@@ -19,18 +19,14 @@ class VerifyTokenFirebase
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-       
 
         $userId = $request->header('Authorization');
-
-
 
         if (!$userId) {
             return response()->json(array('Not Authorization'));
         }
 
         $factory = (new Factory)->withServiceAccount(base_path(env('FIREBASE_CREDENTIALS')));
-
 
         $auth = $factory->createAuth();
 
@@ -40,7 +36,6 @@ class VerifyTokenFirebase
             $uid = $verifiedIdToken->claims()->get('sub');
 
             $user = $auth->getUser($uid);
-
         } catch (FailedToVerifyToken $e) {
             return response()->json(['error' => 'Invalid token'], Response::HTTP_BAD_REQUEST);
         }
@@ -49,6 +44,7 @@ class VerifyTokenFirebase
 
         $userModel = User::where('email', $email)->first();
 
+        // dd($roles);
         if ($userModel != null) {
             foreach ($roles as $role) {
                 if ($userModel->hasRole($role)) {
