@@ -24,7 +24,7 @@ class AulaController extends Controller
                 'nombre' => $aula->nombre,
                 'edificio' => $aula->edificio,
                 'numero_edificio' => $aula->numero_edificio,
-                'piso' => $aula->piso,
+                'piso' => $aula->piso . ' Piso',
                 'numero_piso' => $aula->numero_piso,
                 'proyector' => $aula->proyector,
                 'aire' => $aula->aire,
@@ -95,13 +95,13 @@ class AulaController extends Controller
             case 'Subsuelo':
                 $numeroP = 0;
                 break;
-            case 'Primero':
+            case 'Primer':
                 $numeroP = 1;
                 break;
             case 'Segundo':
                 $numeroP = 2;
                 break;
-            case 'Tercero':
+            case 'Tercer':
                 $numeroP = 3;
                 break;
             case 'Cuarto':

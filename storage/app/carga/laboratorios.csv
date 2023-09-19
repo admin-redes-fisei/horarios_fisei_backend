@@ -1,38 +1,38 @@
 ﻿LABORATORIO 1 ;Edificio 1;1;Segundo;2;20;40
 LABORATORIO 2;Edificio 1;1;Segundo;2;20;40
-LABORATORIO 3;Edificio 1;1;Tercero;3;12;24
-LABORATORIO 4;Edificio 1;1;Tercero;3;12;24
-LABORATORIO 5;Edificio 1;1;Tercero;3;12;24
-LABORATORIO 6;Edificio 1;1;Tercero;3;16;32
-LABORATORIO 7;Edificio 1;1;Tercero;3;20;40
+LABORATORIO 3;Edificio 1;1;Tercer;3;12;24
+LABORATORIO 4;Edificio 1;1;Tercer;3;12;24
+LABORATORIO 5;Edificio 1;1;Tercer;3;12;24
+LABORATORIO 6;Edificio 1;1;Tercer;3;16;32
+LABORATORIO 7;Edificio 1;1;Tercer;3;20;40
 LABORATORIO  8;Edificio 1;1;Segundo;2;20;40
-LABORATORIO CTT ;Edificio 1;1;Primero;1;28;56
+LABORATORIO CTT ;Edificio 1;1;Primer;1;28;56
 REDES 1;Edificio 1;1;Segundo;2;19;40
-REDES 2;Edificio 1;1;Primero;1;0;40
-LAB. INDUSTRIAL I;Edificio 2;2;Subsuelo;0;16;32
-LAB. INDUSTRIAL II;Edificio 2;2;Primero;1;16;32
-Lab. Robótica y Redes Industriales;Edificio 2;2;Subsuelo;0;16;25
-LABORATORIO PLC'S;Edificio 2;2;Primero;1;10;25
-LAB. INST. VIRTUAL;Edificio 2;2;Segundo;2;4;24
-LAB. ELECTRÓNICA BÁSICA;Edificio 2;2;Primero;1;0;22
-LAB. COMUNICACIONES;Edificio 2;2;Primero;1;0;17
-LAB ELECTRONICA AVANZADA;Edificio 1;1;Segundo;2;0;32
-AUDIOVISUALES;Edificio 1;1;Primero;1;0;64
+LABORATORIO REDES 2;Edificio 1;1;Primer;1;0;40
+LABORATORIO INDUSTRIAL I;Edificio 2;2;Subsuelo;0;16;32
+LABORATORIO INDUSTRIAL II;Edificio 2;2;Primer;1;16;32
+LABORATORIO Robótica y Redes Industriales;Edificio 2;2;Subsuelo;0;16;25
+LABORATORIO PLC'S;Edificio 2;2;Primer;1;10;25
+LABORATORIO INSTRUMENTACION VIRTUAL;Edificio 2;2;Segundo;2;4;24
+LABORATORIO ELECTRÓNICA BÁSICA;Edificio 2;2;Primer;1;0;22
+LABORATORIO COMUNICACIONES;Edificio 2;2;Primer;1;0;17
+LABORATORIO ELECTRONICA AVANZADA;Edificio 1;1;Segundo;2;0;32
+AUDIOVISUALES;Edificio 1;1;Primer;1;0;64
 AULA 1 ;Edificio Ciencias Aplicadas;3;Subsuelo;0;0;41
 AULA 2 ;Edificio Ciencias Aplicadas;3;Subsuelo;0;0;41
 AULA 3 ;Edificio Ciencias Aplicadas;3;Subsuelo;0;0;41
 AULA 4 ;Edificio Ciencias Aplicadas;3;Subsuelo;0;0;41
 AULA 5 ;Edificio Ciencias Aplicadas;3;Subsuelo;0;0;41
-AULA 6 ;Edificio Ciencias Aplicadas;3;Primero;1;0;41
-AULA 7 ;Edificio Ciencias Aplicadas;3;Primero;1;0;41
-AULA 8 ;Edificio Ciencias Aplicadas;3;Primero;1;0;41
-AULA 9 ;Edificio Ciencias Aplicadas;3;Primero;1;0;41
-AULA 10 ;Edificio Ciencias Aplicadas;3;Primero;1;0;41
-AULA F01 ;Edificio 2;2;Tercero;3;0;31
-AULA F02 ;Edificio 2;2;Tercero;3;0;31
-AULA F03;Edificio 2;2;Tercero;3;0;31
-AULA F04;Edificio 2;2;Tercero;3;0;31
-AULA F08;Edificio 2;2;Tercero;3;0;31
+AULA 6 ;Edificio Ciencias Aplicadas;3;Primer;1;0;41
+AULA 7 ;Edificio Ciencias Aplicadas;3;Primer;1;0;41
+AULA 8 ;Edificio Ciencias Aplicadas;3;Primer;1;0;41
+AULA 9 ;Edificio Ciencias Aplicadas;3;Primer;1;0;41
+AULA 10 ;Edificio Ciencias Aplicadas;3;Primer;1;0;41
+AULA F01 ;Edificio 2;2;Tercer;3;0;31
+AULA F02 ;Edificio 2;2;Tercer;3;0;31
+AULA F03;Edificio 2;2;Tercer;3;0;31
+AULA F04;Edificio 2;2;Tercer;3;0;31
+AULA F08;Edificio 2;2;Tercer;3;0;31
 AULA G02;Edificio 2;2;Cuarto;4;0;33
 AULA G03;Edificio 2;2;Cuarto;4;0;29
 AULA G04;Edificio 2;2;Cuarto;4;0;41
@@ -44,18 +44,18 @@ AULA I01;Edificio 2;2;Sexto;6;0;51
 AULA I02;Edificio 2;2;Sexto;6;0;41
 AULA I03;Edificio 2;2;Sexto;6;0;41
 AULA J05 ;Edificio 2;2;Septimo;7;0;31
-OF INV 1 ;Edificio 1;1;Primero;1;5;5
-UPE ;Edificio 1;1;Tercero;3;6;6
+OF INV 1 ;Edificio 1;1;Primer;1;5;5
+UPE ;Edificio 1;1;Tercer;3;6;6
 SUBDECANATO;Edificio 1;1;Segundo;2;3;3
 SALA PROFESORES 2;Edificio 2;2;Segundo;2;18;18
-SALA PROFESORES 1 ;Edificio 1;1;Primero;1;12;12
+SALA PROFESORES 1 ;Edificio 1;1;Primer;1;12;12
 OFICINA POSTGRADOS;Edificio 2;2;Segundo;2;6;6
-OFICINA DE VINCULACIÓN ;Edificio 1;1;Tercero;3;7;7
-OF INV 3;Edificio 1;1;Primero;1;5;5
-OF INV 2;Edificio 1;1;Tercero;3;4;4
+OFICINA DE VINCULACIÓN ;Edificio 1;1;Tercer;3;7;7
+OF INV 3;Edificio 1;1;Primer;1;5;5
+OF INV 2;Edificio 1;1;Tercer;3;4;4
 LABORATORIO AUTOMATIZACIÓN INDUSTRIAL;Edificio 2;2;Subsuelo;0;4;4
-DECANATO;Edificio 1;1;Tercero;3;1;1
+DECANATO;Edificio 1;1;Tercer;3;1;1
 COORDINACION SISTEMAS;Edificio 1;1;Segundo;2;2;2
-COORDINACIÓN INDUSTRIAL;Edificio 1;1;Primero;1;2;2
+COORDINACIÓN INDUSTRIAL;Edificio 1;1;Primer;1;2;2
 COORDINACIÓN ELECTRÓNICA;Edificio 1;1;Segundo;2;2;2
-TALLERES TECNOLÓGICOS;Edificio 2;2;Primero;1;3;3
+TALLERES TECNOLÓGICOS;Edificio 2;2;Primer;1;3;3
