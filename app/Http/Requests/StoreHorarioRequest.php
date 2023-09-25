@@ -28,7 +28,6 @@ class StoreHorarioRequest extends FormRequest
             'aula_id' => 'required',
             'docente_id' => 'required',
             'actividad_id' => 'required',
-            'paralelo_id' => 'required',
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
             'numero_dia' => 'required',

@@ -298,14 +298,29 @@ class HorarioController extends Controller
 
         // Obtener los horarios del día en ese edificio, con las materias
         // y donde numero_puesto esté vacío en la tabla aulas, y el nombre de aula contenga "LAB"
-        $horarios = Horario::whereHas('aula', function ($query) use ($numeroEdificio) {
-            $query->where('numero_edificio', $numeroEdificio)
-                ->where('nombre', 'LIKE', '%LAB%');
-        })
-            ->where('dia_semana', $diaLetras)
-            ->whereNull('numero_puesto')
-            ->get();
 
+        $horarios = null;
+
+        if (intval($numeroEdificio) == 1) {
+            $horarios = Horario::whereHas('aula', function ($query) use ($numeroEdificio) {
+                $query->where('numero_edificio', $numeroEdificio)
+                    ->where('nombre', 'LIKE', '%LAB%')
+                    ->where('aula_id', '!=', 19);
+                // Aqui el id del lab de maquinas
+                // ->where('aula_id', '!=', 19);
+            })
+                ->where('dia_semana', $diaLetras)
+                ->whereNull('numero_puesto')
+                ->get();
+        } else {
+            $horarios = Horario::whereHas('aula', function ($query) use ($numeroEdificio) {
+                $query->where('numero_edificio', $numeroEdificio)
+                    ->where('nombre', 'LIKE', '%LAB%');
+            })
+                ->where('dia_semana', $diaLetras)
+                ->whereNull('numero_puesto')
+                ->get();
+        }
 
         $hojaslab = [];
 
