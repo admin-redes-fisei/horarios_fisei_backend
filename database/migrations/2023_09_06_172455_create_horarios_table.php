@@ -20,17 +20,11 @@ return new class extends Migration
             $table->unsignedBigInteger('actividad_id');
             $table->foreign('actividad_id')->references('id')->on('actividades')->onDelete('cascade');
 
-            // $table->unsignedBigInteger('carrera_id');
-            // $table->foreign('carrera_id')->references('id')->on('actividades')->onDelete('cascade');
-
             $table->unsignedBigInteger('paralelo_id');
             $table->foreign('paralelo_id')->references('id')->on('actividades')->onDelete('cascade');;
 
             $table->unsignedBigInteger('docente_id');
             $table->foreign('docente_id')->references('id')->on('docentes')->onDelete('cascade');
-            
-            // $table->unsignedBigInteger('nivel_id')->nullable();
-            // $table->foreign('nivel_id')->references('id')->on('niveles')->onDelete('cascade');
 
             $table->string('dia_semana');
 

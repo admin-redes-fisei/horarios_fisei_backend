@@ -87,6 +87,9 @@ class ActividadController extends Controller
             case 'Decimo':
                 $numero_nivel = 10;
                 break;
+            default:
+                $numero_nivel = null;
+                break;
         }
 
         $carrera = Carrera::find($id_carrera);

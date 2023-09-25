@@ -26,7 +26,7 @@ class StoreActividadRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            'nivel' => 'required',
+            // 'nivel' => 'required',
             'id_carrera' => 'required'
         ];
     }
