@@ -29,6 +29,7 @@ class UpdateAulaRequest extends FormRequest
 
         return [
             'nombre' => 'required|unique:aulas,nombre,' . $id,
+            // 'nombre' => 'required',
             'edificio' => 'required',
             'piso' => 'required',
             'proyector' => ['required', 'in:Si,No'],
