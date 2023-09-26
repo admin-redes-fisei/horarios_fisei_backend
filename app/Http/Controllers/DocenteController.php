@@ -143,6 +143,7 @@ class DocenteController extends Controller
         // dd($horario->numero_puesto);
             $aulaConcatenada = '';
         if ($horario->numero_puesto == '') {
+            //Change
             $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso} Piso";
         }else{
             $aulaConcatenada = "{$aula->nombre} - {$aula->edificio} - {$aula->piso} Piso - Puesto {$horario->numero_puesto}";
