@@ -18,13 +18,21 @@ class AulaController extends Controller
         $aulas = Aula::with(['caracteristicas', 'softwares'])->get();
 
         // Mapear los resultados para excluir la relación pivot
+
         $aulasSinPivot = $aulas->map(function ($aula) {
+
+            $concat = "";
+
+            if ($aula->piso != "Subsuelo") {
+                $concat = " Piso";
+            }
+
             return [
                 'id' => $aula->id,
                 'nombre' => $aula->nombre,
                 'edificio' => $aula->edificio,
                 'numero_edificio' => $aula->numero_edificio,
-                'piso' => $aula->piso . ' Piso',
+                'piso' => $aula->piso . $concat,
                 'numero_piso' => $aula->numero_piso,
                 'proyector' => $aula->proyector,
                 'aire' => $aula->aire,
@@ -175,6 +183,61 @@ class AulaController extends Controller
     {
 
         $aula = Aula::find($id);
+
+        $piso = $request->piso;
+        $edificio = $request->edificio;
+
+
+        $numeroP = 0;
+        $numeroE = 0;
+        switch ($edificio) {
+            case 'Edificio 1':
+                $numeroE = 1;
+                break;
+            case 'Edificio 2':
+                $numeroE = 2;
+                break;
+            case 'Edificio Ciencias Aplicadas':
+                $numeroE = 3;
+                break;
+
+            default:
+                $numeroE = 0;
+                break;
+        }
+
+        switch ($piso) {
+            case 'Subsuelo':
+                $numeroP = 0;
+                break;
+            case 'Primer':
+                $numeroP = 1;
+                break;
+            case 'Segundo':
+                $numeroP = 2;
+                break;
+            case 'Tercer':
+                $numeroP = 3;
+                break;
+            case 'Cuarto':
+                $numeroP = 4;
+                break;
+            case 'Quinto':
+                $numeroP = 5;
+                break;
+            case 'Sexto':
+                $numeroP = 6;
+                break;
+            case 'Septimo':
+                $numeroP = 7;
+                break;
+
+            default:
+                $numeroP = 0;
+                break;
+        }
+
+        $request->merge(['numero_piso' => $numeroP, 'numero_edificio' => $numeroE]);
 
         if ($aula->update($request->all())) {
 

@@ -58,6 +58,9 @@ Route::middleware(['verify.token:Estudiante,Admin'])->group(function (){
     Route::resource('sugerencias', SugerenciaController::class)->only('store');
 });
 
+Route::get('horario/{id}/{dia}', [HorarioController::class, 'horariolab']);
+
+
 // Route::get('horario/{id}/{dia}', [HorarioController::class, 'horariolab']);
 
 
